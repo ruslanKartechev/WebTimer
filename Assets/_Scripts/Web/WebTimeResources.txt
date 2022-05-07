@@ -1,0 +1,3 @@
+http://worldtimeapi.org/api/timezone
+
+https://www.timeapi.io/api/TimeZone/zone?timeZone
