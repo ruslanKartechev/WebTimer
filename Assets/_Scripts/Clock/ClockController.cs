@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace ClockApplication
 {
-    public class TimerController : MonoBehaviour
+    public class ClockController : MonoBehaviour
     {
         public ClockBase Manager;
         private void OnEnable()

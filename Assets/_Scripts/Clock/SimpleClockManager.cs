@@ -37,7 +37,7 @@ namespace ClockApplication
 
         private IEnumerator Timing()
         {
-            _currentData.DebugTime();
+           
             float startTime = _currentData.Hours * 3600f + _currentData.Minutes * 60f + _currentData.Seconds * 1f;
             double time = startTime;
             while (true)

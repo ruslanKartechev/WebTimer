@@ -12,7 +12,8 @@ namespace ClockApplication
         [SerializeField] private ClockBase _clock;
         [Space(10)]
         [SerializeField] private AlarmOutputBase _output;
-        
+        [SerializeField] private AlarmEffectBase _effect;
+
         private Coroutine _alarmCheck;
 
         private void Start()
@@ -30,14 +31,12 @@ namespace ClockApplication
             if (_alarmCheck != null)
                 StopCoroutine(_alarmCheck);
             _alarmCheck = StartCoroutine(AlarmCheck());
-            Debug.Log("Alarm check started");
-
         }
         public override void StopAlarmCheck()
         {
             if (_alarmCheck != null)
                 StopCoroutine(_alarmCheck);
-            Debug.Log("Alarm check stopped");
+            
         }
 
 
@@ -75,7 +74,7 @@ namespace ClockApplication
         public void FireAlarm()
         {
             OnAlarmFire?.Invoke();
-            Debug.Log("Alarm Fired");
+            _effect?.ShowAlarmEffect($"{_alarmSO.Data.Hours}: {_alarmSO.Data.Minutes}: {_alarmSO.Data.Seconds}");
         }
 
         public override void SetAlarm(TimeData data)

@@ -8,10 +8,10 @@ namespace ClockApplication
     public class AlarmTextOutput : AlarmOutputBase
     {
         [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private string OutputText = "Next Alarm:";
         public override void ShowAlarmData(TimeData data)
         {
-            Debug.Log("outputting data");
-            _text.text = $"Next Alarm: {data.Hours}:{data.Minutes}:{data.Seconds}";
+            _text.text = $"{ OutputText}\n{data.Hours}:{data.Minutes}:{data.Seconds}";
         }
     }
 }

@@ -17,7 +17,8 @@ namespace ClockApplication
             float secAngle = -(6f * seconds) + 90;
             //Debug.Log($"sec angle {secAngle}");
             float minAngle = -(6f * minutes) + 90 - Mathf.Lerp(0f, 6f, (float)seconds / 60);
-            float hourAngle = -(15 * hours) + 90 - Mathf.Lerp(0f, 15f, (float)minutes / 60);
+            hours = (int)Mathf.Repeat(hours, 12);
+            float hourAngle = -(30 * hours) + 90 - Mathf.Lerp(0f, 30f, (float)minutes / 60);
             SetAngle(SecNeedle,secAngle);
             SetAngle(MinNeedle, minAngle);
             SetAngle(HourNeedle, hourAngle);

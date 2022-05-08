@@ -31,7 +31,6 @@ namespace ClockApplication
             {
                 await GetTimeRes1();
             }
-            LastUpdate.DebugTime();
             reciver?.Invoke(LastUpdate);
         }
 

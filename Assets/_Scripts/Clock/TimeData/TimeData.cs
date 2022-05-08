@@ -6,7 +6,6 @@ namespace ClockApplication
     [System.Serializable]
     public struct TimeData
     {
-        public string DateTime;
         [Header("Date")]
         public int Year;
         public int Month;
@@ -18,7 +17,6 @@ namespace ClockApplication
 
         public void ProcessResponse(string dateTime)
         {
-            DateTime = dateTime;
             string[] parsed = dateTime.Split(new char[] { 'T' });
             string[] HHmmss = parsed[1].Split(new char[] { ':', '.' });
             Hours = Int16.Parse(HHmmss[0]);
