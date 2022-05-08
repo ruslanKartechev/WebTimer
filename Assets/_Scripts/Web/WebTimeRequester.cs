@@ -20,6 +20,7 @@ namespace ClockApplication
         [SerializeField] private bool _useSecond = false;
         [Space(10)]
         public TimeData LastUpdate;
+        public bool LastCallResult = false;
 
         public override async void GetCorrectTime(Action<TimeData> reciver)
         {
@@ -31,7 +32,8 @@ namespace ClockApplication
             {
                 await GetTimeRes1();
             }
-            reciver?.Invoke(LastUpdate);
+            if(LastCallResult == true)
+                reciver?.Invoke(LastUpdate);
         }
 
         public async Task GetTimeRes1()
@@ -52,8 +54,10 @@ namespace ClockApplication
                 WebTime_1 info_1 = JsonUtility.FromJson<WebTime_1>(request.downloadHandler.text);
                 LastUpdate = new TimeData();
                 LastUpdate.ProcessResponse(info_1.datetime);
-
+                LastCallResult = true;
             }
+            else
+                LastCallResult = false;
         }
 
         public async Task GetTimeRes2()
@@ -72,8 +76,11 @@ namespace ClockApplication
                 WebTime_2 info = JsonUtility.FromJson<WebTime_2>(request.downloadHandler.text);
                 LastUpdate = new TimeData();
                 LastUpdate.ProcessResponse(info.currentLocalTime);
-
+                LastCallResult = true;
             }
+            else
+                LastCallResult = false;
+
         }
 
     }

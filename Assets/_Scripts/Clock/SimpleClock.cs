@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace ClockApplication
 {
-    public class SimpleClockManager : ClockBase
+    public class SimpleClock : ClockBase
     {
         [SerializeField] protected TimeCorrecter _timeCorrecter;
+        [Tooltip("Correct time from the web every")]
+        [SerializeField] protected int _correctDelay = 3600;
         private Coroutine _timing;
 
         private void Awake()
@@ -37,9 +39,9 @@ namespace ClockApplication
 
         private IEnumerator Timing()
         {
-           
             float startTime = _currentData.Hours * 3600f + _currentData.Minutes * 60f + _currentData.Seconds * 1f;
             double time = startTime;
+            float elapsed = 0;
             while (true)
             {
                 TimeSpan t = TimeSpan.FromSeconds(time);
@@ -47,11 +49,30 @@ namespace ClockApplication
                 _currentData.Minutes = t.Minutes;
                 _currentData.Seconds = t.Seconds;
                 time += Time.deltaTime;
+                elapsed += Time.deltaTime;
+                if(elapsed >= _correctDelay)
+                {
+                    elapsed = 0;
+                    RequestTime();
+                }
                 _channelUI?.RaiseUpdateView(_currentData);
                 yield return null;
             }
         }
 
+        private void RequestTime()
+        {
+            _timeCorrecter.GetCorrectTime(OnTimeResult);
+        }
+
+        private void OnTimeResult(TimeData data)
+        {
+            Debug.Log("requested to recorrect clock");
+            _currentData = data;
+            if (_timing != null)
+                StopCoroutine(_timing);
+            _timing = StartCoroutine(Timing());
+        }
 
     }
 }
